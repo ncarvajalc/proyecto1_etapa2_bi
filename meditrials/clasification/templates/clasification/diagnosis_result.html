@@ -1,11 +1,25 @@
 {% extends "base.html" %} {% block content %}
 
-<div>
-  <h1>Resultados</h1>
-  <h2>Diagnostico</h2>
-  <p>Grupo: {{group}}</p>
-  <p>Probabilidad: {{probability}}</p>
+<h1>Resultados</h1>
+<div class="col-12 col-md-6 col-lg-4 text-center">
+  <div class="card">
+    <div class="card-header">Diagnóstico</div>
+    <div class="card-body">
+      <p class="card-text">
+        Grupo:<span class="grupo"> {{group}}</span> <br />
+        Probabilidad: {{probability}}%
+      </p>
+    </div>
+  </div>
 </div>
 <a href="/" class="btn btn-primary">Volver a inicio</a>
+<script>
+  let myListBtn = document.getElementsByTagName("span");
+  for (i = 0; i < myListBtn.length; i++) {
+    myListBtn[i].textContent !== " Elegible"
+      ? (myListBtn[i].className = "text-danger")
+      : (myListBtn[i].className = "text-success");
+  }
+</script>
 
 {% endblock %}

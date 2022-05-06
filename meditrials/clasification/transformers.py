@@ -7,10 +7,21 @@ import inflect
 from nltk import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer, WordNetLemmatizer
+# librería Natural Language Toolkit, usada para trabajar con textos 
+# import nltk
+# import ssl
 
-class Normalizer(BaseEstimator,TransformerMixin):
+# try:
+#     _create_unverified_https_context = ssl._create_unverified_context
+# except AttributeError:
+#     pass
+# else:
+#     ssl._create_default_https_context = _create_unverified_https_context
+# nltk.download()
+
+class Tokenizer_Normalizer(BaseEstimator,TransformerMixin):
     
-    def init(self):
+    def _init_(self):
         pass
     
     def remove_non_ascii(self, words):
@@ -77,7 +88,6 @@ class Normalizer(BaseEstimator,TransformerMixin):
         X_copy = X.copy()  
         X_copy['study_and_condition'] = X_copy['study_and_condition'].apply(contractions.fix)
         X_copy['words'] = X_copy['study_and_condition'].apply(word_tokenize).apply(self.preprocessing)
-        X_copy['label'].apply(lambda x: int(x[9]))
         return X_copy
 
 class Lemmatizer(BaseEstimator,TransformerMixin):

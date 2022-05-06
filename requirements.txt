@@ -1,8 +1,11 @@
-pandas
-joblib
-sklearn
-numpy
-django
 contractions
 inflect
+pandas-profiling
 nltk
+pandas
+numpy
+sklearn
+matplotlib
+escape
+joblib
+django

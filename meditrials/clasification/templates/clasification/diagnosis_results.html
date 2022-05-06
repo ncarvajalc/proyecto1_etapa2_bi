@@ -1,13 +1,30 @@
 {% extends "base.html" %} {% block content %}
 
-<div>
-  <h1>Resultados</h1>
-  {% for d in diagnosis %}
-  <h2>Diagnostico {{forloop.counter}}</h2>
-  <p>Grupo: {{d.group}}</p>
-  <p>Probabilidad: {{d.probability}}</p>
-  {% endfor %}
+<h1>Resultados</h1>
+{% for d in diagnosis %}
+<div class="col-12 col-md-6 col-lg-4 text-center">
+  <div class="card">
+    <div class="card-header">Diagnóstico {{forloop.counter}}</div>
+    <div class="card-body">
+      <p class="card-text">
+        Grupo:<span class="grupo"> {{d.group}}</span> <br />
+        Probabilidad: {{d.probability}}%
+      </p>
+    </div>
+  </div>
 </div>
+{% endfor %}
 <a href="/" class="btn btn-primary">Volver a inicio</a>
+<script>
+  let span = document.getElementsByTagName("span");
+  for (i = 0; i < span.length; i++) {
+    console.log(span);
+    if (span.className !== "navbar-toggler-icon") {
+      span[i].textContent !== " Elegible"
+        ? (span[i].className = "text-danger")
+        : (span[i].className = "text-success");
+    }
+  }
+</script>
 
 {% endblock %}

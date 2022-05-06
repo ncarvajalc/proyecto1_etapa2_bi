@@ -1,25 +1,27 @@
 {% extends "base.html" %} {% block content %}
-<form
-  action="/diagnosis/addMany/"
-  class="row g-3 needs-validation"
-  novalidate
-  method="post"
->
-  <label for="number-diagnostics">Número de diagnósticos a evaluar:</label>
-  <input
-    type="number"
-    min="2"
-    class="form-control"
-    id="number-diagnostics"
-    name="number-diagnostics"
-    required
-  />
-  <div class="invalid-feedback">Debe examinar al menos 2 diagnósticos.</div>
+<div class="col-11 col-md-10 col-lg-8 text-center">
+  <form
+    action="/diagnosis/addMany/"
+    class="row g-3 needs-validation"
+    novalidate
+    method="post"
+  >
+    <label for="number-diagnostics">Número de diagnósticos a evaluar:</label>
+    <input
+      type="number"
+      min="2"
+      class="form-control"
+      id="number-diagnostics"
+      name="number-diagnostics"
+      required
+    />
+    <div class="invalid-feedback">Debe examinar al menos 2 diagnósticos.</div>
 
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit">Siguiente</button>
-  </div>
-</form>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Siguiente</button>
+    </div>
+  </form>
+</div>
 <script>
   // Example starter JavaScript for disabling form submissions if there are invalid fields
   (function () {

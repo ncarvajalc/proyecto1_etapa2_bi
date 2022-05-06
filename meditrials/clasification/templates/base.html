@@ -23,12 +23,45 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="display-1">MediTrials</h1>
-      <p>
-        Bienvenido a MediTrials, su aplicación para apoyo en la eligibilidad de
-        ensayos clínicos en pacientes con cáncer
-      </p>
-      <div id="content">{% block content %} {% endblock %}</div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">MediTrials</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="/" class="nav-link"> Inicio </a>
+              </li>
+              <li class="nav-item">
+                <a href="/diagnosis/add/" class="nav-link">
+                  Consultar un diagnóstico
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/diagnosis_number/" class="nav-link">
+                  Consultar varios diagnósticos
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div id="content" class="container">
+        <div class="row justify-content-center align-items-center content">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

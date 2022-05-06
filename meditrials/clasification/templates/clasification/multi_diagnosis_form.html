@@ -1,23 +1,25 @@
 {% extends "base.html" %} {% block content %}
-<form action="/resultsMany/" method="POST" enctype="multipart/form-data">
-  <!-- Security token -->
-  {% csrf_token %}
+<div class="col-11 col-md-10 col-lg-8 text-center">
+  <form action="/resultsMany/" method="POST" enctype="multipart/form-data">
+    <!-- Security token -->
+    {% csrf_token %}
 
-  <div id="multi-diagnostics">
-    {% for _ in range %}
-    <div class="mb-3">
-      <label class="form-label" for="study_and_condition_{{i}}"
-        >Diagnóstico {{forloop.counter}}</label
-      >
-      <textarea
-        name="study_and_condition"
-        id="study_and_condition_{{forloop.counter}}"
-        class="form-control"
-        required
-      ></textarea>
+    <div id="multi-diagnostics">
+      {% for _ in range %}
+      <div class="mb-3">
+        <label class="form-label" for="study_and_condition_{{i}}"
+          >Diagnóstico {{forloop.counter}}</label
+        >
+        <textarea
+          name="study_and_condition"
+          id="study_and_condition_{{forloop.counter}}"
+          class="form-control"
+          required
+        ></textarea>
+      </div>
+      {% endfor %}
+      <input type="submit" value="Evaluar" class="btn btn-success" />
     </div>
-    {% endfor %}
-    <input type="submit" value="Evaluar" class="btn btn-success" />
-  </div>
-</form>
+  </form>
+</div>
 {% endblock %}

@@ -1,10 +1,17 @@
 {% extends "base.html" %} {% block content %}
-<div class="btn-group" role="group" aria-label="Options">
-  <a href="diagnosis/add/" class="btn btn-outline-primary">
-    Consultar un diagnóstico
-  </a>
-  <a href="diagnosis_number/" class="btn btn-outline-primary">
-    Consultar varios diagnósticos
-  </a>
+<div class="col-11 col-md-10 col-lg-8 text-center">
+  <p class="welcome-message">
+    Bienvenido a MediTrials, su aplicación para el apoyo en la eligibilidad de
+    ensayos clínicos en pacientes con cáncer
+  </p>
+  <div class="btn-group" role="group" aria-label="Options">
+    <a href="diagnosis/add/" class="btn btn-outline-primary">
+      Consultar un diagnóstico
+    </a>
+    <a href="diagnosis_number/" class="btn btn-outline-primary">
+      Consultar varios diagnósticos
+    </a>
+  </div>
 </div>
+
 {% endblock %}

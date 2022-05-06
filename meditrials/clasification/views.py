@@ -1,6 +1,5 @@
 import json
 import pandas as pd
-from joblib import load
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse, HttpResponse, HttpRequest
@@ -31,18 +30,20 @@ def many_results(request: HttpRequest):
         probabilities = model.predict_proba(X).tolist()
         final_diagnosis = []
         for i in range(len(groups)):
-            final_diagnosis.append({'group': groups[i], 'probability': probabilities[i]})
+            d = {}
+            d['group'] = "No elegible" if groups[i] == "__label__1" else "Elegible"
+            d['probability'] = round(probabilities[i][1]*100, 2) if groups[i] == "__label__1" else round(probabilities[i][0]*100, 2)
+            final_diagnosis.append(d)
+        print(final_diagnosis)
         context = {'diagnosis': final_diagnosis}
         return render(request, 'clasification/diagnosis_results.html', context=context)
     elif request.content_type == 'application/json':
         parsed_body = json.loads(request.body.decode("utf-8"))
         df = pd.DataFrame(parsed_body)
         df.columns=['study_and_condition']
-        X = df['study_and_condition']
+        X = df
         groups = model.predict(X).tolist()
         probabilities = model.predict_proba(X).tolist()
-        groups = [0, 1]
-        probabilities = [0.5 , 0]
         final_diagnosis = []
         for i in range(len(groups)):
             final_diagnosis.append({'group': groups[i], 'probability': probabilities[i]})
@@ -50,6 +51,7 @@ def many_results(request: HttpRequest):
     return HttpResponse("Error")
 
 def single_result(request):
+    
     group = request.GET.get('cluster')
     probability = request.GET.get('probability')
     context={'group': group,
@@ -81,7 +83,7 @@ class JsonableResponseMixin:
 
 class DiagnosisCreateView(JsonableResponseMixin,CreateView):
     model = Diagnostic
-    fields = ['study_and_condition']
+    fields = ['diagnostico']
 
     def render_to_response(self, context):
         # Look for a 'format=json' GET argument
