@@ -66,10 +66,11 @@ class JsonableResponseMixin:
         """
         Returns a JSON response, transforming 'context' to make the payload.
         """
-        input_diagnosis = self.get_data(context)
-        group = 0
-        probability = 0.5
-        final_diagnosis = {'group': group, 'probability': probability}
+        df = pd.DataFrame({'study_and_condition': [context['study_and_condition']]})
+        X = df
+        group = model.predict(X).tolist()
+        probability = model.predict_proba(X).tolist()
+        final_diagnosis = {'group': group[0], 'probability': probability}
 
         return JsonResponse(
             final_diagnosis,
