@@ -1,0 +1,8 @@
+pandas
+joblib
+sklearn
+numpy
+django
+contractions
+inflect
+nltk

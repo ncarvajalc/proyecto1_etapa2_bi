@@ -2,7 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from clasification.transformers import *
 
+module_dir = os.path.dirname(__file__)  # get current directory
+MODEL_ROUTE = os.path.join(module_dir, "./assets/modelo.joblib")
+model = load(MODEL_ROUTE)
 
 def main():
     """Run administrative tasks."""

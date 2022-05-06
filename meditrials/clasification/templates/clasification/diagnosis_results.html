@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block content %}
+
+<div>
+  <h1>Resultados</h1>
+  {% for d in diagnosis %}
+  <h2>Diagnostico {{forloop.counter}}</h2>
+  <p>Grupo: {{d.group}}</p>
+  <p>Probabilidad: {{d.probability}}</p>
+  {% endfor %}
+</div>
+<a href="/" class="btn btn-primary">Volver a inicio</a>
+
+{% endblock %}

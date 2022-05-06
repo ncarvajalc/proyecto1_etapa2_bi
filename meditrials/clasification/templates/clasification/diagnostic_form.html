@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<form method="POST" enctype="multipart/form-data">
+  <!-- Security token -->
+  {% csrf_token %}
+
+  <!-- Using the formset -->
+  {{ form.as_p }}
+
+  <input type="submit" value="Evaluar" />
+</form>
+<script>
+  ta = document.getElementById("id_study_and_condition");
+  ta.className = "form-control";
+
+  let myListBtn = document.getElementsByTagName("input");
+  for (i = 0; i < myListBtn.length; i++) {
+    myListBtn[i].className = "btn btn-success";
+  }
+
+  let myListLabel = document.getElementsByTagName("label");
+  for (i = 0; i < myListLabel.length; i++) {
+    myListLabel[i].className = "form-label";
+  }
+</script>
+{% endblock %}

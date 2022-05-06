@@ -12,16 +12,23 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'clasification/style.css' %}"
+    />
 
     <title>MediTrials</title>
   </head>
   <body>
     <div class="container">
-      <h1>MediTrials</h1>
+      <h1 class="display-1">MediTrials</h1>
       <p>
         Bienvenido a MediTrials, su aplicación para apoyo en la eligibilidad de
         ensayos clínicos en pacientes con cáncer
       </p>
+      <div id="content">{% block content %} {% endblock %}</div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
