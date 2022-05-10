@@ -1,14 +1,19 @@
 import os
 from joblib import load
 from sklearn.base import BaseEstimator, TransformerMixin
-import re, unicodedata
+import re
+import unicodedata
 import contractions
 import inflect
 from nltk import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer, WordNetLemmatizer
-# librería Natural Language Toolkit, usada para trabajar con textos 
-# import nltk
+# librería Natural Language Toolkit, usada para trabajar con textos
+import nltk
+nltk.download("punkt")
+nltk.download("stopwords")
+nltk.download("wordnet")
+nltk.download("omw-1.4")
 # import ssl
 
 # try:
@@ -19,16 +24,18 @@ from nltk.stem import LancasterStemmer, WordNetLemmatizer
 #     ssl._create_default_https_context = _create_unverified_https_context
 # nltk.download()
 
-class Tokenizer_Normalizer(BaseEstimator,TransformerMixin):
-    
+
+class Tokenizer_Normalizer(BaseEstimator, TransformerMixin):
+
     def _init_(self):
         pass
-    
+
     def remove_non_ascii(self, words):
         """Remove non-ASCII characters from list of tokenized words"""
         new_words = []
         for word in words:
-            new_word = unicodedata.normalize('NFKD', word).encode('ascii', 'ignore').decode('utf-8', 'ignore')
+            new_word = unicodedata.normalize('NFKD', word).encode(
+                'ascii', 'ignore').decode('utf-8', 'ignore')
             new_words.append(new_word)
         return new_words
 
@@ -71,7 +78,6 @@ class Tokenizer_Normalizer(BaseEstimator,TransformerMixin):
             if word not in sw:
                 new_words.append(word)
         return new_words
-    
 
     def preprocessing(self, words):
         words = self.to_lowercase(words)
@@ -80,20 +86,23 @@ class Tokenizer_Normalizer(BaseEstimator,TransformerMixin):
         words = self.remove_non_ascii(words)
         words = self.remove_stopwords(words)
         return words
-    
+
     def fit(self, X, y=None):
         return self
-    
+
     def transform(self, X, y=None):
-        X_copy = X.copy()  
-        X_copy['study_and_condition'] = X_copy['study_and_condition'].apply(contractions.fix)
-        X_copy['words'] = X_copy['study_and_condition'].apply(word_tokenize).apply(self.preprocessing)
+        X_copy = X.copy()
+        X_copy['study_and_condition'] = X_copy['study_and_condition'].apply(
+            contractions.fix)
+        X_copy['words'] = X_copy['study_and_condition'].apply(
+            word_tokenize).apply(self.preprocessing)
         return X_copy
 
-class Lemmatizer(BaseEstimator,TransformerMixin):
+
+class Lemmatizer(BaseEstimator, TransformerMixin):
     def init(self):
         pass
-    
+
     def stem_words(self, words):
         """Stem words in list of tokenized words"""
         stemer = LancasterStemmer()
@@ -114,18 +123,17 @@ class Lemmatizer(BaseEstimator,TransformerMixin):
 
         return lemmas
 
-
     def stem_and_lemmatize(self, words):
         stems = self.stem_words(words)
         lemmas = self.lemmatize_verbs(words)
         return stems + lemmas
-    
+
     def fit(self, X, y=None):
         return self
-    
-    def transform(self, X, y=None):
-        X_copy = X.copy()        
-        X_copy['words'] = X_copy['words'].apply(self.stem_and_lemmatize)
-        X_copy['words'] = X_copy['words'].apply(lambda x: ' '.join(map(str, x)))
-        return X_copy['words']
 
+    def transform(self, X, y=None):
+        X_copy = X.copy()
+        X_copy['words'] = X_copy['words'].apply(self.stem_and_lemmatize)
+        X_copy['words'] = X_copy['words'].apply(
+            lambda x: ' '.join(map(str, x)))
+        return X_copy['words']
